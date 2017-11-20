@@ -1,0 +1,22 @@
+
+
+
+This is, {{ host_hostname.stdout }}!
+UangTeman {{ host_hostname.stdout }} Instance.
+---------------------------------------------------------------------------------
+You are accessing this system, meaning you've got privilleges to do so, thus you
+will bond with the following rules:
+- Minimize direct access.
+- Consult other admins for anything you wanna do with this system!
+
+If, by some reason you had access by finding a backdoor or system vulnerability,
+well, in that case, we'll be very appreciated if you contact us and tell about it
+to ando@uangteman.com -- with price. And, we truly sorry for the lack of adminis-
+tration capability.
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+---
+- hosts: testserver
+
+  tasks:
+#    - include: 'tasks/start_services.yml'
+#    - include: 'tasks/turnoff_selinux.yml'
+#    - include: 'tasks/variables_from_shell.yml'
+#    - include: 'tasks/packages_removal.yml'
+#    - include: 'tasks/full_update.yml'
+#    - include: 'tasks/user_creation.yml'
+#    - include: 'tasks/add_firewall.yml'
+#    - include: 'tasks/user_creation_sudo.yml'
+#    - include: 'tasks/ssh_config.yml'
+#    - include: 'tasks/root_password.yml'
+#    - include: 'tasks/reload_services.yml'
+
+  roles:
+     - start_services
+     - turnoff_selinux
+     - variables_from_shell
+     - full_update
+     - packages_removal
+     - user_creation
+     - user_creation_sudo
+     - add_firewall
+     - ssh_config
+#    - root_password
+     - reload_services

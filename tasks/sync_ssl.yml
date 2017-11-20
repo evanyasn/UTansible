@@ -1,0 +1,7 @@
+- name: SSL | Copy SSL Certificate
+# become_user: root
+  synchronize:
+    src: /etc/ssl/
+    dest: /etc/ssl/
+    dest_port: 22
+  tags: syncssl

@@ -1,0 +1,32 @@
+---
+- hosts: testserver
+  
+  vars:
+
+#PHP Variables --> /etc/php-fpm.d/www.conf
+    php_listen: /var/run/php-fpm/php-fpm.sock
+
+#Nginx Variables
+    server_name: 192.168.232.130
+    root_dir: /var/www/wordpress
+    symfony_web_dir: "{{ symfony_root_dir }}/web"
+#SSH Variables
+    users:
+
+      abdi:
+        name: abdi
+        password: Pa55w0rd!!!
+      franky:
+        name: franky
+        password: Pa55w0rd!!!
+      evan:
+        name: evan
+        password: Horasmah0_
+
+  tasks:
+    - include: 'tasks/install_nginx.yml'
+    - include: 'tasks/install_php.yml'
+    - include: 'tasks/setting_ssl.yml'
+#   - include: 'tasks/ssh_config.yml'
+    - include: 'tasks/user_creation.yml'
+#   - include: 'tasks/root_password.yml'

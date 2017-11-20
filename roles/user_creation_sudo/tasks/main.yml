@@ -1,0 +1,43 @@
+- name: Creating users
+  become: true
+  user: name={{ item.value.name }} password={{ item.value.password |password_hash('sha512') }} groups=wheel,sshuser 
+#shell=/bin/bash
+  with_dict: "{{ users_sudo }}"
+  tags: usercreation
+  
+
+- name: Creating .ssh dir-file
+  become: true
+  file:
+    path: /home/{{ item.value.name }}/.ssh
+    state: directory
+    owner: "{{ item.value.name }}"
+    group: "{{ item.value.name }}"
+    mode: 0777
+# template:
+#   src: /home/makinglaugh/.ssh/id_rsa.pub
+#   dest: "/home/{{ item.value.name }}/.ssh/authorized_keys" 
+  with_dict: "{{ users_sudo }}"
+  tags: userdircreation
+
+- name: Creating .ssh/authorized_keys file  
+  become: true
+  become_user: "{{ item.value.name }}"
+# file:
+#   path: /home/{{ item.value.name }}/.ssh/authorized_keys
+#   state: touch
+#   owner: "{{ item.value.name }}"
+#   group: "{{ item.value.name }}"
+#   mode: 0600
+  template:
+    src: /home/makinglaugh/.ssh/id_rsa.pub
+    dest: "/home/{{ item.value.name }}/.ssh/authorized_keys"
+  with_dict: "{{ users_sudo }}"
+  tags: userdircreation
+
+- name: chmod files
+  become: true
+  shell: chmod -R 640 /home/{{ item.value.name }}/.ssh && chown -R {{ item.value.name }}:{{ item.value.name }} /home/{{ item.value.name }}/.ssh && chmod 700 /home/{{ item.value.name }}/.ssh
+
+  with_dict: "{{ users_sudo }}"
+  tags: userdircreation

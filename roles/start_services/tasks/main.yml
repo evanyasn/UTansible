@@ -1,0 +1,6 @@
+- name: Services | Start
+  service:
+    name: "{{ item.value.name }}"
+    state: started
+  with_dict: "{{ startservices }}"
+  tags: servicestart

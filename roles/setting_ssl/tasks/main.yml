@@ -1,0 +1,4 @@
+- name: Openssl | Install Open SSL
+  yum:
+   name: openssl
+  

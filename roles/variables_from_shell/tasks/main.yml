@@ -1,0 +1,7 @@
+- name: Add variable IP
+  command: "hostname -I"
+  register: host_ip
+
+- name: Add variable Hostname
+  command: "hostname"
+  register: host_hostname

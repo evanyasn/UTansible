@@ -1,0 +1,9 @@
+- name: firewall | Add
+  firewalld:
+    zone: "{{ item.value.zone }}"
+    port: "{{ item.value.name }}"
+    permanent: true
+    state: enabled
+  with_dict: "{{ firewalladd }}"
+  tags: firewalladd
+

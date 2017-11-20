@@ -1,0 +1,95 @@
+- name: SSH | Default SSH file config Backup
+  shell: cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+
+#- name: SSH | Add Default UT Config file
+#  become: true
+#  template:
+#    src: templates/default_ssh.conf
+#    src: /etc/ssh/sshd_config
+#    dest: "/etc/ssh/sshd_config"
+#  tags: sshconfig
+
+- name: SSH | Configure SSH Port
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#Port 22'
+    line: 'Port 1122'
+
+- name: SSH | Listen Addr
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#ListenAddress 0.0.0.0'
+    insertafter: '#ListenAddress 0.0.0.0'
+    line: 'AllowGroups sshuser'
+
+#- name: SSH | Allow group sshuser
+#  lineinfile:
+#    path: /etc/ssh/sshd_config
+#    regexp: '#ListenAddress 0.0.0.0'
+#    line: 'ListenAddress {{ host_ip.stdout }}'
+
+- name: SSH | Configure SSH Log Level
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#LogLevel INFO'
+    line: 'LogLevel INFO'
+
+- name: SSH | Configure SSH root_login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#PermitRootLogin yes'
+    line: 'PermitRootLogin no'
+
+- name: SSH | Configure SSH Strict Mode
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#StrictModes yes'
+    line: 'StrictModes yes'
+
+- name: SSH | Configure SSH Pubkey Auth
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: 'PubkeyAuthentication yes'
+    line: 'PubkeyAuthentication yes'
+
+- name: SSH | Configure SSH Agent Forwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#AllowAgentForwarding yes'
+    line: 'AllowAgentForwarding no'
+
+- name: SSH | Configure SSH Tcp Forwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#AllowTcpForwarding yes'
+    line: 'AllowTcpForwarding no'
+
+- name: SSH | Configure SSH X11 Forwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: 'X11Forwarding yes'
+    line: 'X11Forwarding no'
+
+- name: SSH | Configure SSH Client Interval
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#ClientAliveInterval 0'
+    line: 'ClientAliveInterval 300'
+
+- name: SSH | Configure SSH Client Alive
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#ClientAliveCountMax 3'
+    line: 'ClientAliveCountMax 3'
+
+- name: SSH Banner | Add Default Banner
+  become: true
+  template:
+    src: templates/default_banner
+    dest: /etc/issue
+
+- name: SSH | Configure SSH Client Alive
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '#Banner none'
+    line: 'Banner /etc/issue'

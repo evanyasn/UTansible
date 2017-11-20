@@ -1,0 +1,14 @@
+---
+- hosts: testserver
+  
+  tasks:
+    - include: 'tasks/install_rsync.yml'
+    - include: 'tasks/setting_ssl.yml'
+    - include: 'tasks/sync_ssl.yml'
+    - include: 'tasks/install_php.yml'
+    - include: 'tasks/install_nginx.yml'
+    - include: 'tasks/sync_app_directory.yml'
+    - include: 'tasks/reload_services.yml'
+#   - include: 'tasks/user_creation.yml'
+#   - include: 'tasks/ssh_config.yml'
+#   - include: 'tasks/root_password.yml'

@@ -1,0 +1,61 @@
+- name: PHP | Configure PHP 5.4 Repository
+  yum:
+    name: "http://rpms.famillecollet.com/enterprise/remi-release-7.rpm"
+  tags: phpinstall
+
+- name: PHP | install PHP 5.4
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - php
+    - php-mysql
+    - php-fpm
+  tags: phpinstall
+
+- name: PHP | Edit php.ini File
+  lineinfile:
+    path: /etc/php.ini
+    regexp: ';cgi.fix_pathinfo=*'
+    line: 'cgi.fix_pathinfo=0'
+  tags: phpinstall
+
+- name: PHP | Configure PHP www.conf file
+  lineinfile:
+    path: /etc/php-fpm.d/www.conf
+    regexp: 'listen = 127.0.0.1:9000'
+    line: 'listen = {{ php_listen }}'
+  tags: phpinstall
+
+- name: PHP | Configure PHP www.conf file listen owner
+  lineinfile:
+    path: /etc/php-fpm.d/www.conf
+    regexp: ';listen.owner = nobody'
+    line: 'listen.owner = nobody'
+  tags: phpinstall
+
+- name: PHP | Configure PHP www.conf file listen group
+  lineinfile:
+    path: /etc/php-fpm.d/www.conf
+    regexp: ';listen.group = nobody'
+    line: 'listen.group = nobody'
+  tags: phpinstall
+
+- name: PHP | Configure PHP www.conf file user
+  lineinfile:
+    path: /etc/php-fpm.d/www.conf
+    regexp: 'user = apache'
+    line: 'user = nginx'
+  tags: phpinstall
+
+- name: PHP | Configure PHP www.conf file group
+  lineinfile:
+    path: /etc/php-fpm.d/www.conf
+    regexp: 'group = apache'
+    line: 'group = nginx'
+  tags: phpinstall
+
+- name: PHP | Start Service
+  service:
+    name: php-fpm
+    state: started
+  tags: phpinstall

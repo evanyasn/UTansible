@@ -1,0 +1,4 @@
+- name: Copy Application
+  synchronize:
+    src: "{{ src_app }}"
+    dest: "{{ dest_app }}"

@@ -1,0 +1,3 @@
+- name: Packages | Install Packages Required
+  yum:
+   name: rsync

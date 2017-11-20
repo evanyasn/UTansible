@@ -1,0 +1,54 @@
+---
+
+#PHP Variables --> /etc/php-fpm.d/www.conf
+    php_listen: /var/run/php-fpm/php-fpm.sock
+
+#Nginx Variables
+    server_name: 192.168.232.134
+    src_config: templates/default_nginx.conf
+    dest_config: /etc/nginx/conf.d/default.conf
+    root_dir: /var/www/wordpress
+
+    src_app: /var/www/
+    dest_app: /var/www/
+
+#Firewall add
+    firewalladd:
+      ssh:
+        name: 1122/tcp
+        zone: public
+
+#SSH Variables
+    users:
+      franky:
+        name: franky
+        password: Pa55w0rd!!!
+      evan:
+        name: evan
+        password: Horasmah0_
+
+    users_sudo:
+      abdi:
+        name: abdi
+        password: Pa55w0rd!!!
+
+#Services to start
+    startservices:
+       firewall:
+         name: firewalld
+
+#Services
+    services:
+#      nginx:
+#        name: nginx
+#      php-fpm:
+#        name: php-fpm
+       sshd:
+         name: sshd
+
+#Services to be Removed
+    packages_to_remove:
+       subversion:
+         name: subversion
+       postfix:
+         name: postfix
